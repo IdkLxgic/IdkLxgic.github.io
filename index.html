@@ -3,332 +3,621 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logic — Roblox Developer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <title>Michael LaCour | Logic Dev</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Epilogue:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --border: #1e1e1e;
-      --white: #f5f5f5;
-      --muted: #555;
-      --accent: #ffffff;
+      --white:   #ffffff;
+      --off:     #f7f7f5;
+      --light:   #ebebeb;
+      --mid:     #c0c0c0;
+      --muted:   #888;
+      --text:    #1a1a1a;
+      --black:   #0d0d0d;
+      --blue:    #1a4fff;
+      --blue-dk: #0f35cc;
+      --blue-lt: #e8eeff;
+      --border:  #e0e0e0;
+      --surface: #f3f3f3;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      font-weight: 300;
+      background: var(--white);
+      color: var(--text);
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 400;
       overflow-x: hidden;
     }
 
-    /* ── SCROLLBAR ── */
     ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    ::-webkit-scrollbar-track { background: var(--off); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================
+       TOP INFO BAR
+    ============================ */
+    .topbar {
+      background: var(--black);
+      color: var(--white);
+      padding: 10px 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px 60px;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--blue);
     }
-    nav.scrolled { border-bottom-color: var(--border); }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .topbar-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #bbb;
+    }
+
+    .topbar-item strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .topbar-item .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--blue);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .topbar-clock {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-clock .tz-label {
+      font-size: 10px;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .topbar-divider {
+      width: 1px;
+      height: 14px;
+      background: #333;
+    }
+
+    /* ============================
+       NAV
+    ============================ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 64px;
+      transition: box-shadow 0.3s;
+    }
+
+    nav.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+    }
 
     .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 20px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 15px;
       letter-spacing: 0.08em;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo-badge {
+      background: var(--blue);
       color: var(--white);
-      text-decoration: none;
+      font-size: 9px;
+      padding: 3px 7px;
+      border-radius: 2px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 40px;
+      gap: 36px;
+      align-items: center;
     }
+
     .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 13px;
-      letter-spacing: 0.1em;
+      font-size: 12.5px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--white); }
 
-    /* ── HERO ── */
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-cta {
+      background: var(--black);
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 3px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--blue) !important; color: var(--white) !important; }
+
+    /* ============================
+       HERO
+    ============================ */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 60px 80px;
+      background: var(--black);
+      color: var(--white);
+      padding: 96px 60px 80px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 60px;
+      align-items: end;
+      border-bottom: 3px solid var(--blue);
       position: relative;
-      border-bottom: 1px solid var(--border);
+      overflow: hidden;
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(ellipse 60% 50% at 70% 40%, #1a1a1a 0%, transparent 70%);
+      top: -60px;
+      right: -60px;
+      width: 480px;
+      height: 480px;
+      border: 1px solid rgba(26,79,255,0.15);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 320px;
+      height: 320px;
+      border: 1px solid rgba(26,79,255,0.1);
+      border-radius: 50%;
       pointer-events: none;
     }
 
     .hero-eyebrow {
-      font-size: 12px;
-      letter-spacing: 0.2em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 24px;
+      color: var(--blue);
+      margin-bottom: 28px;
     }
 
     .hero-eyebrow span {
       display: inline-block;
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       background: #3dff7a;
       border-radius: 50%;
-      margin-right: 10px;
-      animation: pulse 2s ease-in-out infinite;
+      animation: pulse 2.5s ease-in-out infinite;
     }
 
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.8); }
+      50% { opacity: 0.3; transform: scale(0.75); }
     }
 
-    .hero-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(72px, 12vw, 160px);
-      line-height: 0.9;
-      letter-spacing: -0.03em;
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(52px, 7vw, 90px);
+      line-height: 1;
+      letter-spacing: -0.02em;
       color: var(--white);
-      margin-bottom: 40px;
+      margin-bottom: 8px;
     }
 
-    .hero-title em {
+    .hero-name em {
       font-style: italic;
-      font-weight: 400;
-      color: #333;
-      -webkit-text-stroke: 1px #444;
+      color: var(--blue);
     }
 
-    .hero-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+    .hero-handle {
+      font-family: 'DM Mono', monospace;
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 32px;
+      letter-spacing: 0.04em;
     }
 
     .hero-desc {
-      max-width: 380px;
-      font-size: 15px;
-      line-height: 1.7;
-      color: #666;
+      font-size: 16px;
+      line-height: 1.75;
+      color: #999;
+      max-width: 540px;
+      margin-bottom: 40px;
     }
 
-    .hero-stats {
-      display: flex;
-      gap: 60px;
-      text-align: right;
-    }
-
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 36px;
+    .hero-desc strong {
       color: var(--white);
-      display: block;
+      font-weight: 500;
     }
-    .stat-label {
-      font-size: 11px;
-      letter-spacing: 0.15em;
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      padding: 12px 28px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--muted);
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
     }
 
-    /* ── SECTIONS ── */
-    .section {
-      padding: 120px 60px;
-      border-bottom: 1px solid var(--border);
+    .btn-primary:hover { background: var(--blue-dk); transform: translateY(-1px); }
+
+    .btn-ghost {
+      border: 1px solid #333;
+      color: #888;
+      padding: 12px 28px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
     }
 
-    .section-header {
+    .btn-ghost:hover { border-color: #666; color: var(--white); }
+
+    .hero-sidebar {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 4px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .sidebar-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-row {
+      padding: 14px 0;
+      border-bottom: 1px solid #1e1e1e;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 80px;
+      gap: 12px;
     }
 
-    .project-video-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+    .sidebar-row:last-child { border-bottom: none; }
+
+    .sidebar-key {
+      font-family: 'DM Mono', monospace;
+      font-size: 10.5px;
+      color: #555;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .sidebar-val {
+      font-size: 13px;
+      color: #ccc;
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    .sidebar-val strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .sidebar-val .blue { color: var(--blue); }
+
+    /* ============================
+       SECTION LAYOUT
+    ============================ */
+    .section {
+      padding: 96px 60px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-bg { background: var(--off); }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
 
     .section-label {
-      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10.5px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
+      color: var(--blue);
+      margin-bottom: 14px;
     }
 
     .section-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(36px, 5vw, 56px);
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
       line-height: 1.1;
       letter-spacing: -0.02em;
+      color: var(--black);
     }
 
     .section-title em {
       font-style: italic;
-      font-weight: 400;
-      color: #444;
+      color: var(--muted);
     }
 
-    /* ── PROJECT GRID ── */
+    .section-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      background: var(--light);
+      padding: 6px 14px;
+      border-radius: 2px;
+    }
+
+    /* ============================
+       SEGMENT DIVIDER
+    ============================ */
+    .segment-divider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 60px;
+      margin: 0;
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .segment-divider-inner {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 0;
+      width: 100%;
+    }
+
+    .segment-divider-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .segment-divider-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* ============================
+       PROJECT GRID
+    ============================ */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--border);
+      gap: 24px;
     }
 
     .project-card {
-      background: var(--bg);
-      padding: 40px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
       cursor: pointer;
-      transition: background 0.3s;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
-    .project-card:hover { background: var(--surface); }
-
-    .project-card:hover .project-arrow { transform: translate(4px, -4px); }
-
-    .project-top {
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 32px;
+      flex-direction: column;
+      color: inherit;
     }
 
-    .project-num {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      color: var(--muted);
+    .project-card:hover {
+      border-color: var(--blue);
+      box-shadow: 0 8px 40px rgba(26,79,255,0.1);
+      transform: translateY(-2px);
     }
 
-    .project-arrow {
-      font-size: 20px;
-      color: var(--muted);
-      transition: transform 0.3s ease, color 0.3s;
-    }
-    .project-card:hover .project-arrow { color: var(--white); }
-
-    .project-video-thumb {
+    .project-thumb-wrap {
+      position: relative;
       width: 100%;
       aspect-ratio: 16/9;
-      background: var(--border);
-      border-radius: 4px;
-      margin-bottom: 28px;
+      background: var(--black);
       overflow: hidden;
-      position: relative;
     }
 
-    .project-video-thumb iframe {
+    .project-thumb-wrap iframe {
       width: 100%;
       height: 100%;
       border: none;
-      pointer-events: none;
+      display: block;
     }
 
-    .play-hint {
+    .project-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .embed-overlay {
       position: absolute;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.4);
-      opacity: 0;
+      background: rgba(0,0,0,0.55);
       transition: opacity 0.3s;
+      cursor: pointer;
     }
-    .project-card:hover .play-hint { opacity: 1; }
-    .play-hint-inner {
-      width: 52px;
-      height: 52px;
-      border: 1.5px solid rgba(255,255,255,0.7);
+
+    .embed-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .play-btn {
+      width: 56px;
+      height: 56px;
+      background: var(--blue);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .embed-overlay:hover .play-btn {
+      transform: scale(1.08);
+      background: var(--blue-dk);
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 9px 0 9px 18px;
+      border-color: transparent transparent transparent #fff;
+      margin-left: 3px;
+    }
+
+    .project-body {
+      padding: 24px 28px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .project-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--blue);
+    }
+
+    .project-arrow {
+      color: var(--muted);
+      font-size: 18px;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .project-card:hover .project-arrow {
+      color: var(--blue);
+      transform: translate(3px, -3px);
     }
 
     .project-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 20px;
-      margin-bottom: 10px;
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
       letter-spacing: -0.01em;
+      color: var(--black);
+      margin-bottom: 8px;
     }
 
     .project-desc {
-      font-size: 13px;
-      color: #555;
-      line-height: 1.6;
-      margin-bottom: 20px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #666;
+      margin-bottom: 18px;
+      flex: 1;
     }
 
     .project-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 7px;
     }
 
     .tag {
-      font-size: 10px;
-      letter-spacing: 0.12em;
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 5px 12px;
-      border: 1px solid var(--border);
+      padding: 4px 10px;
       border-radius: 2px;
+      background: var(--surface);
       color: var(--muted);
+      border: 1px solid var(--border);
     }
 
-    /* Wide card (full width) */
-    .project-card.wide {
-      grid-column: 1 / -1;
-    }
-    .project-card.wide .project-video-thumb {
-      max-height: 360px;
-    }
-
-    /* ── ABOUT ── */
+    /* ============================
+       ABOUT + SKILLS
+    ============================ */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -337,414 +626,718 @@
     }
 
     .about-text p {
-      font-size: 16px;
+      font-size: 15.5px;
       line-height: 1.8;
-      color: #666;
-      margin-bottom: 20px;
+      color: #555;
+      margin-bottom: 18px;
     }
 
     .about-text p strong {
-      color: var(--white);
-      font-weight: 400;
+      color: var(--black);
+      font-weight: 600;
     }
 
-    .skills-list {
-      list-style: none;
+    .exp-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 36px;
     }
+
+    .exp-cell {
+      background: var(--white);
+      padding: 20px 24px;
+      text-align: center;
+    }
+
+    .exp-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 34px;
+      color: var(--black);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .exp-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .skills-list { list-style: none; }
 
     .skill-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 0;
+      padding: 16px 0;
       border-bottom: 1px solid var(--border);
+      gap: 20px;
     }
+
+    .skill-item:first-child { border-top: 1px solid var(--border); }
 
     .skill-name {
       font-size: 14px;
-      color: var(--white);
+      color: var(--black);
+      font-weight: 500;
+    }
+
+    .skill-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .skill-pct {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      width: 30px;
+      text-align: right;
     }
 
     .skill-bar-wrap {
-      width: 120px;
-      height: 2px;
-      background: var(--border);
-      border-radius: 1px;
+      width: 100px;
+      height: 3px;
+      background: var(--light);
+      border-radius: 2px;
       overflow: hidden;
     }
 
     .skill-bar {
       height: 100%;
-      background: var(--white);
-      border-radius: 1px;
+      background: var(--blue);
+      border-radius: 2px;
       width: 0;
-      transition: width 1.2s ease;
+      transition: width 1.3s cubic-bezier(0.4,0,0.2,1);
     }
 
-    /* ── CONTACT ── */
-    .contact-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+    /* ============================
+       CONTACT
+    ============================ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
     }
 
-    .contact-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(48px, 8vw, 100px);
-      line-height: 1;
-      letter-spacing: -0.03em;
+    .contact-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(44px, 6vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 24px;
     }
 
-    .contact-links {
+    .contact-headline em {
+      font-style: italic;
+      color: var(--blue);
+    }
+
+    .contact-sub {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .contact-links-list {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      text-align: right;
+      gap: 4px;
     }
 
-    .contact-link {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
+    .contact-link-item a {
       display: flex;
       align-items: center;
-      gap: 10px;
-      justify-content: flex-end;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      background: var(--white);
     }
-    .contact-link:hover { color: var(--white); }
-    .contact-link::after {
-      content: '↗';
+
+    .contact-link-item a:hover {
+      border-color: var(--blue);
+      background: var(--blue-lt);
+      color: var(--blue);
+    }
+
+    .contact-link-item a span {
+      font-size: 16px;
+    }
+
+    .payment-box {
+      background: var(--black);
+      border-radius: 4px;
+      padding: 32px;
+      color: var(--white);
+    }
+
+    .payment-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .payment-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #1e1e1e;
+      font-size: 14px;
+    }
+
+    .payment-row:last-child { border-bottom: none; }
+
+    .payment-key {
+      color: #666;
+      font-family: 'DM Mono', monospace;
       font-size: 12px;
     }
 
-    /* ── FOOTER ── */
+    .payment-val {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .payment-val .blue { color: var(--blue); }
+
+    .payment-notice {
+      margin-top: 20px;
+      padding: 12px 16px;
+      background: rgba(26,79,255,0.12);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 3px 3px 0;
+      font-size: 12.5px;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    /* ============================
+       FOOTER
+    ============================ */
     footer {
-      padding: 32px 60px;
+      background: var(--black);
+      padding: 28px 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     footer p {
-      font-size: 12px;
-      color: #333;
-      letter-spacing: 0.05em;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: 0.04em;
     }
 
-    /* ── FADE IN ANIMATION ── */
+    footer a {
+      color: #555;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--white); }
+
+    /* ============================
+       FADE ANIMATIONS
+    ============================ */
     .fade-up {
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
     }
+
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
     }
-    .fade-up.delay-1 { transition-delay: 0.1s; }
-    .fade-up.delay-2 { transition-delay: 0.2s; }
-    .fade-up.delay-3 { transition-delay: 0.3s; }
-    .fade-up.delay-4 { transition-delay: 0.4s; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav, .hero, .section, footer { padding-left: 24px; padding-right: 24px; }
+    .fade-up.d1 { transition-delay: 0.08s; }
+    .fade-up.d2 { transition-delay: 0.16s; }
+    .fade-up.d3 { transition-delay: 0.24s; }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 960px) {
+      .topbar, nav, .hero, .section, footer { padding-left: 24px; padding-right: 24px; }
+      .hero { grid-template-columns: 1fr; padding-top: 64px; }
+      .hero-sidebar { display: none; }
       .projects-grid { grid-template-columns: 1fr; }
-      .project-card.wide { grid-column: 1; }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .contact-inner { flex-direction: column; align-items: flex-start; gap: 40px; }
-      .contact-links { text-align: left; }
-      .contact-link { justify-content: flex-start; }
-      .hero-bottom { flex-direction: column; gap: 32px; }
-      .hero-stats { flex-direction: row; gap: 32px; text-align: left; }
-      .nav-links { gap: 20px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links { gap: 16px; }
+      .segment-divider { padding-left: 24px; padding-right: 24px; }
+      .topbar { padding: 10px 24px; }
+      .topbar-left { gap: 16px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- TOP INFO BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-clock">
+        <span id="live-clock">--:-- --</span>
+        <span class="tz-label">CST (My Time)</span>
+      </div>
+      <div class="topbar-divider"></div>
+      <div class="topbar-item">
+        <span class="dot"></span>
+        <span>Michael LaCour | goes by <strong>Logic</strong></span>
+      </div>
+      <div class="topbar-divider"></div>
+      <div class="topbar-item">Age: <strong>14</strong></div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-item">Luau: <strong>4 yrs</strong></div>
+      <div class="topbar-divider"></div>
+      <div class="topbar-item">HTML: <strong>2 yrs</strong></div>
+      <div class="topbar-divider"></div>
+      <div class="topbar-item">Python: <strong>3 yrs</strong></div>
+    </div>
+  </div>
+
   <!-- NAV -->
   <nav id="nav">
-    <a href="#" class="nav-logo">LOGIC</a>
+    <div class="nav-logo">
+      LOGIC.DEV
+      <span class="nav-logo-badge">Open to Work</span>
+    </div>
     <ul class="nav-links">
-      <li><a href="#work">Work</a></li>
+      <li><a href="#roblox">Roblox</a></li>
+      <li><a href="#web">Web</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <header class="hero">
-    <p class="hero-eyebrow"><span></span>Roblox Developer - Open to work</p>
-    <h1 class="hero-title">
-      LOGIC<br /><em>WORKS</em>
-    </h1>
-    <div class="hero-bottom">
+    <div>
+      <p class="hero-eyebrow"><span></span>Roblox Developer &amp; Web Builder</p>
+      <h1 class="hero-name">Logic<br /><em>(IdkLxgic)</em></h1>
+      <p class="hero-handle">// Michael LaCour</p>
       <p class="hero-desc">
-        I script and build systems for Roblox games - from complex mechanics to polished UI. Every showcase below was built from scratch.
+        I build <strong>production-ready systems for Roblox</strong> and clean web tools from scratch. Everything shown here is my own work, tested and functional. No copy-paste, no outsourcing.
       </p>
-      <div class="hero-stats">
-        <div>
-       <span class="stat-num">10+</span>
-          <span class="stat-label">Showcases</span>
-        </div>
-        <div>
-          <span class="stat-num">Lua</span>
-          <span class="stat-label">Primary Lang</span>
-        </div>
-        <div>
-          <span class="stat-num">2026</span>
-          <span class="stat-label">Active</span>
-        </div>
+      <div class="hero-actions">
+        <a href="#roblox" class="btn-primary">View Work</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
       </div>
     </div>
+    <aside class="hero-sidebar">
+      <p class="sidebar-title">// Quick Info</p>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Name</span>
+        <span class="sidebar-val"><strong>Michael LaCour</strong></span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Handle</span>
+        <span class="sidebar-val"><strong>Logic</strong></span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Age</span>
+        <span class="sidebar-val">14</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Primary Lang</span>
+        <span class="sidebar-val"><span class="blue">Luau</span> (4 years)</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Other</span>
+        <span class="sidebar-val">HTML (2 yrs) &bull; Python (3 yrs)</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Payment</span>
+        <span class="sidebar-val"><span class="blue">CashApp</span> &bull; Robux</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Terms</span>
+        <span class="sidebar-val">% deal with upfront required</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Status</span>
+        <span class="sidebar-val"><span class="blue">Available</span></span>
+      </div>
+    </aside>
   </header>
 
-  <!-- WORK -->
-  <section id="work" class="section">
-    <div class="section-header fade-up">
+  <!-- ROBLOX DIVIDER -->
+  <div class="segment-divider" id="roblox">
+    <div class="segment-divider-inner">
+      <span class="segment-divider-label">Roblox Projects</span>
+      <div class="segment-divider-line"></div>
+      <span class="segment-divider-label">01 &mdash; 08</span>
+    </div>
+  </div>
+
+  <!-- ROBLOX SECTION -->
+  <section class="section">
+    <div class="section-head fade-up">
       <div>
-        <p class="section-label">/ selected work</p>
-        <h2 class="section-title">Project<br /><em>Showcases</em></h2>
+        <p class="section-label">// Roblox Studio</p>
+        <h2 class="section-title">Game Systems &amp; <em>Mechanics</em></h2>
       </div>
+      <span class="section-count">8 showcases</span>
     </div>
 
     <div class="projects-grid">
 
-      <!-- 1: Animation System -->
-      <a href="https://medal.tv/games/roblox-studio/clips/lQhqbQvW1h0uRyMgo" target="_blank" class="project-card fade-up">
-        <div class="project-top">
-          <span class="project-num">01</span>
-          <span class="project-arrow">↗</span>
+      <div class="project-card fade-up" data-href="https://medal.tv/games/roblox-studio/clips/lQhqbQvW1h0uRyMgo">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-01" src="about:blank" data-src="https://medal.tv/clip/lQhqbQvW1h0uRyMgo/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-01">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
         </div>
-        <div class="project-video-thumb">
-          <iframe src="https://medal.tv/clip/lQhqbQvW1h0uRyMgo/embed?autoplay=0&muted=1" allowfullscreen></iframe>
-          <div class="play-hint"><div class="play-hint-inner">▶</div></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">01</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Animation System</h3>
+          <p class="project-desc">First-person view with full limb visibility and head tracking that follows animations. States covered: slide, walk, jump, fall, crouch idle, crouch move, and idle. Built entirely from scratch.</p>
+          <div class="project-tags">
+            <span class="tag">Animation</span>
+            <span class="tag">First Person</span>
+            <span class="tag">Scripting</span>
+          </div>
         </div>
-        <h3 class="project-name">Animation System</h3>
-        <p class="project-desc">First-person integration with full limb visibility. Head tracks and follows animations. Includes slide, walk, jump, fall, crouch idle/move, and idle states.</p>
-        <div class="project-tags">
-          <span class="tag">Animation</span>
-          <span class="tag">First Person</span>
-          <span class="tag">Scripting</span>
-        </div>
-      </a>
+      </div>
 
-      <!-- 2: Loading Screen -->
-      <a href="https://medal.tv/games/roblox-studio/clips/lQhwORG3shmyk9kDP" target="_blank" class="project-card fade-up delay-1">
-        <div class="project-top">
-          <span class="project-num">02</span>
-          <span class="project-arrow">↗</span>
+      <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox-studio/clips/lQhwORG3shmyk9kDP">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-02" src="about:blank" data-src="https://medal.tv/clip/lQhwORG3shmyk9kDP/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-02">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
         </div>
-        <div class="project-video-thumb">
-          <iframe src="https://medal.tv/clip/lQhwORG3shmyk9kDP/embed?autoplay=0&muted=1" allowfullscreen></iframe>
-          <div class="play-hint"><div class="play-hint-inner">▶</div></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">02</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Loading Screen</h3>
+          <p class="project-desc">Cinematic camera sequence while the game loads. Skip button included. Live loading status that shows exactly what asset is being loaded and tracks overall progress.</p>
+          <div class="project-tags">
+            <span class="tag">UI</span>
+            <span class="tag">Camera</span>
+            <span class="tag">Loading</span>
+          </div>
         </div>
-        <h3 class="project-name">Loading Screen</h3>
-        <p class="project-desc">Cinematic camera scene during load. Skip button support. Live loading status display showing exactly what's being loaded and progress.</p>
-        <div class="project-tags">
-          <span class="tag">UI</span>
-          <span class="tag">Camera</span>
-          <span class="tag">Loading</span>
-        </div>
-      </a>
+      </div>
 
-      <!-- 3: Shop System -->
-      <a href="https://medal.tv/games/roblox-studio/clips/lQhzreeju2fm6t4m7" target="_blank" class="project-card fade-up">
-        <div class="project-top">
-          <span class="project-num">03</span>
-          <span class="project-arrow">↗</span>
+      <div class="project-card fade-up" data-href="https://medal.tv/games/roblox-studio/clips/lQhzreeju2fm6t4m7">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-03" src="about:blank" data-src="https://medal.tv/clip/lQhzreeju2fm6t4m7/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-03">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
         </div>
-        <div class="project-video-thumb">
-          <iframe src="https://medal.tv/clip/lQhzreeju2fm6t4m7/embed?autoplay=0&muted=1" allowfullscreen></iframe>
-          <div class="play-hint"><div class="play-hint-inner">▶</div></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">03</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Shop System</h3>
+          <p class="project-desc">Camera pans to focus the selected item. Each item has its own UI transitions and a spotlight activates overhead. Items equip on selection and everything saves via DataStore.</p>
+          <div class="project-tags">
+            <span class="tag">DataSave</span>
+            <span class="tag">Camera</span>
+            <span class="tag">Shop</span>
+          </div>
         </div>
-        <h3 class="project-name">Shop System</h3>
-        <p class="project-desc">Camera moves to focus selected shop item. Dynamic UI transitions per item. Spotlight activates above active item. Item equipping with full DataStore saves.</p>
-        <div class="project-tags">
-          <span class="tag">DataSave</span>
-          <span class="tag">Camera</span>
-          <span class="tag">Shop</span>
-        </div>
-      </a>
+      </div>
 
-      <!-- 4: Mining System -->
-      <a href="https://medal.tv/games/roblox-studio/clips/lQhDwqqOpaLTZZTzJ" target="_blank" class="project-card fade-up delay-1">
-        <div class="project-top">
-          <span class="project-num">04</span>
-          <span class="project-arrow">↗</span>
+      <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox-studio/clips/lQhDwqqOpaLTZZTzJ">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-04" src="about:blank" data-src="https://medal.tv/clip/lQhDwqqOpaLTZZTzJ/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-04">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
         </div>
-        <div class="project-video-thumb">
-          <iframe src="https://medal.tv/clip/lQhDwqqOpaLTZZTzJ/embed?autoplay=0&muted=1" allowfullscreen></iframe>
-          <div class="play-hint"><div class="play-hint-inner">▶</div></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">04</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Mining System</h3>
+          <p class="project-desc">Deformable terrain mining with a pickaxe stat system. Each tool carries unique range, cooldown, and power values. Includes ore detection, a full inventory UI, and collection logic.</p>
+          <div class="project-tags">
+            <span class="tag">Terrain</span>
+            <span class="tag">Inventory</span>
+            <span class="tag">Stats</span>
+          </div>
         </div>
-        <h3 class="project-name">Mining System</h3>
-        <p class="project-desc">Deformable terrain mining. Pickaxe stat system — each tool has unique range, cooldown, and power. Ore detection, inventory UI, and collection mechanics.</p>
-        <div class="project-tags">
-          <span class="tag">Terrain</span>
-          <span class="tag">Inventory</span>
-          <span class="tag">Stats</span>
-        </div>
-      </a>
+      </div>
 
-      <!-- 5: Selling + DataSave -->
-      <a href="https://medal.tv/games/roblox-studio/clips/lQhHdMjElxtXIQvIz" target="_blank" class="project-card fade-up">
-        <div class="project-top">
-          <span class="project-num">05</span>
-          <span class="project-arrow">↗</span>
+      <div class="project-card fade-up" data-href="https://medal.tv/games/roblox-studio/clips/lQhHdMjElxtXIQvIz">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-05" src="about:blank" data-src="https://medal.tv/clip/lQhHdMjElxtXIQvIz/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-05">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
         </div>
-        <div class="project-video-thumb">
-          <iframe src="https://medal.tv/clip/lQhHdMjElxtXIQvIz/embed?autoplay=0&muted=1" allowfullscreen></iframe>
-          <div class="play-hint"><div class="play-hint-inner">▶</div></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">05</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Selling System + DataSaves</h3>
+          <p class="project-desc">Ores scale in size and the larger ones sell for more. Full economy loop: mine, collect, sell. Ore size and currency balance both persist across sessions through DataStore.</p>
+          <div class="project-tags">
+            <span class="tag">Economy</span>
+            <span class="tag">DataStore</span>
+            <span class="tag">Persistence</span>
+          </div>
         </div>
-        <h3 class="project-name">Selling System + DataSaves</h3>
-        <p class="project-desc">Ores with dynamic sizes — larger ores sell for more. Full economy loop: mine, collect, sell. Ore size and money amount persisted across sessions via DataStore.</p>
-        <div class="project-tags">
-          <span class="tag">Economy</span>
-          <span class="tag">DataStore</span>
-          <span class="tag">Persistence</span>
-        </div>
-      </a>
+      </div>
 
-      <!-- 6: Basketball -->
-      <a href="https://medal.tv/games/roblox/clips/m0XfoJYmc5tI-bBRw" target="_blank" class="project-card fade-up delay-1">
-        <div class="project-top">
-          <span class="project-num">06</span>
-          <span class="project-arrow">↗</span>
+      <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox/clips/m0XfoJYmc5tI-bBRw">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-06" src="about:blank" data-src="https://medal.tv/clip/m0XfoJYmc5tI-bBRw/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-06">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
         </div>
-        <div class="project-video-thumb">
-          <iframe src="https://medal.tv/clip/m0XfoJYmc5tI-bBRw/embed?autoplay=0&muted=1" allowfullscreen></iframe>
-          <div class="play-hint"><div class="play-hint-inner">▶</div></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">06</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Basketball System + UI</h3>
+          <p class="project-desc">Functional shooting mechanics with real physics. The entire UI was scripted from scratch alongside it. A second clip on Medal shows extended gameplay if you want more context.</p>
+          <div class="project-tags">
+            <span class="tag">Physics</span>
+            <span class="tag">UI</span>
+            <span class="tag">Sports</span>
+          </div>
         </div>
-        <h3 class="project-name">Basketball System + UI</h3>
-        <p class="project-desc">Functional shooting mechanics with physics. Fully integrated UI coded from scratch. Clip 2 available on Medal.tv showing extended gameplay.</p>
-        <div class="project-tags">
-          <span class="tag">Physics</span>
-          <span class="tag">UI</span>
-          <span class="tag">Sports</span>
-        </div>
-      </a>
+      </div>
 
-      <!-- 7: Vehicle + Misc Systems -->
-      <a href="https://medal.tv/games/roblox/clips/m0Xm1L95tt-YK8n6b" target="_blank" class="project-card fade-up">
-        <div class="project-top">
-          <span class="project-num">07</span>
-          <span class="project-arrow">↗</span>
+      <div class="project-card fade-up" data-href="https://medal.tv/games/roblox/clips/m0Xm1L95tt-YK8n6b">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-07" src="about:blank" data-src="https://medal.tv/clip/m0Xm1L95tt-YK8n6b/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-07">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
         </div>
-        <div class="project-video-thumb">
-          <iframe src="https://medal.tv/clip/m0Xm1L95tt-YK8n6b/embed?autoplay=0&muted=1" allowfullscreen></iframe>
-          <div class="play-hint"><div class="play-hint-inner">▶</div></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">07</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Vehicle Mounting + Core Systems</h3>
+          <p class="project-desc">Mount and dismount vehicles with smooth transitions. Also packed in: a working leaderboard, quest system, NPC mascots, and a full game tutorial. All production-ready.</p>
+          <div class="project-tags">
+            <span class="tag">Vehicles</span>
+            <span class="tag">Quests</span>
+            <span class="tag">Leaderboard</span>
+          </div>
         </div>
-        <h3 class="project-name">Vehicle Mounting + Core Systems</h3>
-        <p class="project-desc">Vehicle mount/dismount system. Working leaderboard, quest system, NPC mascots, and full game tutorial — all functional and production-ready.</p>
-        <div class="project-tags">
-          <span class="tag">Vehicles</span>
-          <span class="tag">Quests</span>
-          <span class="tag">Leaderboard</span>
-        </div>
-      </a>
+      </div>
 
-      <!-- 8: Working Menu -->
-      <a href="https://medal.tv/games/roblox/clips/m6IH0Lg47QOGbCvDy" target="_blank" class="project-card fade-up delay-1">
-        <div class="project-top">
-          <span class="project-num">08</span>
-          <span class="project-arrow">↗</span>
+      <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox/clips/m6IH0Lg47QOGbCvDy">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-08" src="about:blank" data-src="https://medal.tv/clip/m6IH0Lg47QOGbCvDy/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-08">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
         </div>
-        <div class="project-video-thumb">
-          <iframe src="https://medal.tv/clip/m6IH0Lg47QOGbCvDy/embed?autoplay=0&muted=1" allowfullscreen></iframe>
-          <div class="play-hint"><div class="play-hint-inner">▶</div></div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">08</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Menu System</h3>
+          <p class="project-desc">Main menu with tween-driven animations throughout. Includes a practice mode teleport button and clean UI transitions. Everything behaves reliably under actual play conditions.</p>
+          <div class="project-tags">
+            <span class="tag">Menu</span>
+            <span class="tag">Tweens</span>
+            <span class="tag">UI/UX</span>
+          </div>
         </div>
-        <h3 class="project-name">Working Menu System</h3>
-        <p class="project-desc">Full main menu with tween animations. Practice mode teleport button. Clean UI with smooth transitions and reliable functionality throughout.</p>
-        <div class="project-tags">
-          <span class="tag">Menu</span>
-          <span class="tag">Tweens</span>
-          <span class="tag">UI/UX</span>
-        </div>
-      </a>
+      </div>
 
-      <!-- 9: COLORXL -->
-<a href="COLORXL" target="_blank" class="project-card fade-up">
-  <div class="project-top">
-    <span class="project-num">09</span>
-    <span class="project-arrow">↗</span>
+    </div>
+  </section>
+
+  <!-- WEB DIVIDER -->
+  <div class="segment-divider" id="web">
+    <div class="segment-divider-inner">
+      <span class="segment-divider-label">Web Projects</span>
+      <div class="segment-divider-line"></div>
+      <span class="segment-divider-label">09 &mdash; 10</span>
+    </div>
   </div>
-  <div class="project-video-thumb">
-    <img src="https://image2url.com/r2/default/images/1773274828478-c9d36497-b88d-4760-a065-63b82114f77b.png" alt="COLORXL Preview" />
-    <div class="play-hint"><div class="play-hint-inner">↗</div></div>
-  </div>
-  <h3 class="project-name">COLORXL</h3>
-  <p class="project-desc">Solid color generator & picker. Pick any color, sample from an image, or use your camera to grab colors in real-time. Download as PNG/JPG/WEBP at any pixel size.</p>
-  <div class="project-tags">
-    <span class="tag">Color Tools</span>
-    <span class="tag">Camera API</span>
-    <span class="tag">Canvas</span>
-  </div>
-</a>
 
-<!-- 10: QRXL -->
-<a href="QRXL" target="_blank" class="project-card fade-up delay-1">
-  <div class="project-top">
-    <span class="project-num">10</span>
-    <span class="project-arrow">↗</span>
-  </div>
-  <div class="project-video-thumb">
-    <img src="https://image2url.com/r2/default/images/1773274941604-5404783e-f405-428a-916d-fb958e52f3e1.png" alt="QRXL Preview" />
-    <div class="play-hint"><div class="play-hint-inner">↗</div></div>
-  </div>
-  <h3 class="project-name">QRXL</h3>
-  <p class="project-desc">QR code generator & scanner. Generate custom-colored QR codes, scan from uploaded images, or decode live from your camera. Downloads as PNG or SVG.</p>
-  <div class="project-tags">
-    <span class="tag">QR Codes</span>
-    <span class="tag">Camera API</span>
-    <span class="tag">File Export</span>
-  </div>
-</a>
+  <!-- WEB SECTION -->
+  <section class="section section-bg">
+    <div class="section-head fade-up">
+      <div>
+        <p class="section-label">// HTML / CSS / JS</p>
+        <h2 class="section-title">Web Tools &amp; <em>Applications</em></h2>
+      </div>
+      <span class="section-count">2 projects</span>
+    </div>
+
+    <div class="projects-grid">
+
+      <a href="COLORXL" target="_blank" class="project-card fade-up">
+        <div class="project-thumb-wrap">
+          <img src="https://image2url.com/r2/default/images/1773274828478-c9d36497-b88d-4760-a065-63b82114f77b.png" alt="COLORXL" />
+          <div class="embed-overlay">
+            <div class="play-btn" style="background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.5);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">09</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">COLORXL</h3>
+          <p class="project-desc">Pick any color, sample from an uploaded image, or pull colors directly from your camera in real time. Export as PNG, JPG, or WEBP at any pixel size you need.</p>
+          <div class="project-tags">
+            <span class="tag">Color Tools</span>
+            <span class="tag">Camera API</span>
+            <span class="tag">Canvas</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="QRXL" target="_blank" class="project-card fade-up d1">
+        <div class="project-thumb-wrap">
+          <img src="https://image2url.com/r2/default/images/1773274941604-5404783e-f405-428a-916d-fb958e52f3e1.png" alt="QRXL" />
+          <div class="embed-overlay">
+            <div class="play-btn" style="background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.5);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">10</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">QRXL</h3>
+          <p class="project-desc">Generate custom-colored QR codes, decode them from uploaded images, or scan live from your camera. Exports as PNG or SVG. Everything runs in the browser with no backend.</p>
+          <div class="project-tags">
+            <span class="tag">QR Codes</span>
+            <span class="tag">Camera API</span>
+            <span class="tag">File Export</span>
+          </div>
+        </div>
+      </a>
 
     </div>
   </section>
 
   <!-- ABOUT -->
   <section id="about" class="section">
+    <div class="section-head fade-up">
+      <div>
+        <p class="section-label">// Background</p>
+        <h2 class="section-title">Who I <em>Am</em></h2>
+      </div>
+    </div>
     <div class="about-grid">
       <div class="fade-up">
-        <p class="section-label">/ about</p>
-        <h2 class="section-title" style="margin-bottom:40px;">Who I<br /><em>Am</em></h2>
         <div class="about-text">
-          <p>I'm <strong>Logic</strong>, a Roblox developer focused on building <strong>real, functional game systems</strong> — not just visual demos. Every project here was scripted by me and tested in live environments.</p>
-          <p>I specialize in <strong>game logic, data persistence, UI integration, and physics systems</strong>. I take complex mechanics and make them clean, reliable, and scalable.</p>
-          <p>Currently building and <strong>open to freelance or collaboration</strong> on serious Roblox projects.</p>
+          <p>My name is <strong>Michael LaCour</strong>, but online I go by <strong>Logic</strong>. I am 14 years old and have been writing Luau for four years. I got into development because I wanted to build things that actually worked, not just looked good in a screenshot.</p>
+          <p>Most of what I do lives inside <strong>Roblox Studio</strong>: game logic, data persistence, UI systems, physics, camera work, and anything else a project needs. I do not hand off work to anyone else. If it is in the portfolio, I wrote it and tested it myself.</p>
+          <p>Outside of Roblox, I build <strong>browser-based tools</strong> in plain HTML, CSS, and JavaScript. No frameworks, no dependencies, just clean code that runs anywhere. I also know Python and use it when a project calls for it.</p>
+          <p>I take freelance and collaboration work seriously. If you have a Roblox project that needs real systems, get in touch.</p>
+        </div>
+        <div class="exp-row">
+          <div class="exp-cell">
+            <div class="exp-num">4</div>
+            <div class="exp-label">Yrs Luau</div>
+          </div>
+          <div class="exp-cell">
+            <div class="exp-num">3</div>
+            <div class="exp-label">Yrs Python</div>
+          </div>
+          <div class="exp-cell">
+            <div class="exp-num">2</div>
+            <div class="exp-label">Yrs HTML</div>
+          </div>
         </div>
       </div>
-      <div class="fade-up delay-2">
-        <p class="section-label" style="margin-bottom:24px;">/ skills</p>
+      <div class="fade-up d2">
+        <p class="section-label" style="margin-bottom:0;">// Skills</p>
         <ul class="skills-list">
           <li class="skill-item">
             <span class="skill-name">Lua / Luau</span>
-            <div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div>
+            <div class="skill-right">
+              <span class="skill-pct">90%</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div>
+            </div>
           </li>
           <li class="skill-item">
             <span class="skill-name">DataStore / Persistence</span>
-            <div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div>
+            <div class="skill-right">
+              <span class="skill-pct">85%</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div>
+            </div>
           </li>
           <li class="skill-item">
             <span class="skill-name">UI Scripting</span>
-            <div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div>
+            <div class="skill-right">
+              <span class="skill-pct">80%</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div>
+            </div>
           </li>
           <li class="skill-item">
-            <span class="skill-name">Physics & Mechanics</span>
-            <div class="skill-bar-wrap"><div class="skill-bar" data-width="75"></div></div>
+            <span class="skill-name">Physics &amp; Mechanics</span>
+            <div class="skill-right">
+              <span class="skill-pct">75%</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" data-width="75"></div></div>
+            </div>
           </li>
           <li class="skill-item">
             <span class="skill-name">Animation Integration</span>
-            <div class="skill-bar-wrap"><div class="skill-bar" data-width="78"></div></div>
+            <div class="skill-right">
+              <span class="skill-pct">78%</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" data-width="78"></div></div>
+            </div>
           </li>
           <li class="skill-item">
             <span class="skill-name">Camera Systems</span>
-            <div class="skill-bar-wrap"><div class="skill-bar" data-width="82"></div></div>
+            <div class="skill-right">
+              <span class="skill-pct">82%</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" data-width="82"></div></div>
+            </div>
+          </li>
+          <li class="skill-item">
+            <span class="skill-name">HTML / CSS / JS</span>
+            <div class="skill-right">
+              <span class="skill-pct">72%</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" data-width="72"></div></div>
+            </div>
           </li>
         </ul>
       </div>
@@ -752,54 +1345,124 @@
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="section">
-    <div class="contact-inner fade-up">
-      <h2 class="contact-title">LET'S<br />WORK.</h2>
-      <div class="contact-links">
-        <p class="section-label">/ reach out</p>
-        <!-- UPDATE THESE LINKS with your actual profiles -->
-        <a href="https://www.roblox.com/users/1039526162/profile" target="_blank" class="contact-link">Roblox Profile</a>
-        <a href="https://discord.gg/vFJ5KUJpCM" target="_blank" class="contact-link">Discord</a>
-        <a href="https://x.com/IdkLxgic" target="_blank" class="contact-link">X</a>
+  <section id="contact" class="section section-bg">
+    <div class="section-head fade-up">
+      <div>
+        <p class="section-label">// Work Together</p>
+        <h2 class="section-title">Get in <em>Touch</em></h2>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <div class="fade-up">
+        <h2 class="contact-headline">Ready to<br /><em>build?</em></h2>
+        <p class="contact-sub">I am available for freelance Roblox work and serious collaborations. Reach out through any of the channels below and I will respond as soon as I can.</p>
+        <ul class="contact-links-list">
+          <li class="contact-link-item">
+            <a href="https://www.roblox.com/users/1039526162/profile" target="_blank">
+              Roblox Profile
+              <span>&#8599;</span>
+            </a>
+          </li>
+          <li class="contact-link-item">
+            <a href="https://discord.gg/vFJ5KUJpCM" target="_blank">
+              Discord Server
+              <span>&#8599;</span>
+            </a>
+          </li>
+          <li class="contact-link-item">
+            <a href="https://x.com/IdkLxgic" target="_blank">
+              X (Twitter)
+              <span>&#8599;</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="fade-up d2">
+        <div class="payment-box">
+          <p class="payment-title">// Payment &amp; Terms</p>
+          <div class="payment-row">
+            <span class="payment-key">CashApp</span>
+            <span class="payment-val"><span class="blue">$MichaelLaCourJr</span></span>
+          </div>
+          <div class="payment-row">
+            <span class="payment-key">Robux</span>
+            <span class="payment-val">Accepted</span>
+          </div>
+          <div class="payment-row">
+            <span class="payment-key">Structure</span>
+            <span class="payment-val">Percentage, Robux, or CashApp.</span>
+          </div>
+          <div class="payment-row">
+            <span class="payment-key">Upfront</span>
+            <span class="payment-val">Required on all jobs % based</span>
+          </div>
+          <div class="payment-row">
+            <span class="payment-key">Commission</span>
+            <span class="payment-val">Open</span>
+          </div>
+          <div class="payment-notice">
+            I only take percentage-based deals and all work requires an upfront payment before I start. No exceptions.
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 Logic — All rights reserved</p>
-    <p>Built with plain HTML/CSS/JS</p>
+    <p>&copy; 2026 Michael LaCour (Logic). All rights reserved.</p>
+    <p>Built with plain HTML, CSS &amp; GITHUB.PAGES</p>
   </footer>
 
   <script>
-    // ── Nav shadow on scroll
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
+      nav.classList.toggle('scrolled', window.scrollY > 60);
     });
 
-    // ── Fade-up on scroll (IntersectionObserver)
     const fadeEls = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('visible');
-          // Animate skill bars when about section comes in
-          const bars = e.target.querySelectorAll('.skill-bar');
-          bars.forEach(bar => {
+          e.target.querySelectorAll('.skill-bar').forEach(bar => {
             bar.style.width = bar.dataset.width + '%';
           });
         }
       });
-    }, { threshold: 0.12 });
-
+    }, { threshold: 0.1 });
     fadeEls.forEach(el => observer.observe(el));
 
-    // ── Make video iframes clickable (open in new tab on click)
-    document.querySelectorAll('.project-card').forEach(card => {
+    function updateClock() {
+      const now = new Date();
+      const cst = new Date(now.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+      let h = cst.getHours();
+      const m = String(cst.getMinutes()).padStart(2, '0');
+      const s = String(cst.getSeconds()).padStart(2, '0');
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      document.getElementById('live-clock').textContent = h + ':' + m + ':' + s + ' ' + ampm;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    document.querySelectorAll('.embed-overlay[id^="overlay-"]').forEach(overlay => {
+      overlay.addEventListener('click', () => {
+        const num = overlay.id.replace('overlay-', '');
+        const frame = document.getElementById('frame-' + num);
+        if (frame && frame.dataset.src) {
+          frame.src = frame.dataset.src;
+          overlay.classList.add('hidden');
+        }
+      });
+    });
+
+    document.querySelectorAll('.project-card[data-href]').forEach(card => {
       card.addEventListener('click', (e) => {
-        // handled by anchor href
+        if (e.target.closest('.embed-overlay') || e.target.closest('iframe')) return;
+        window.open(card.dataset.href, '_blank');
       });
     });
   </script>
+
 </body>
 </html>
