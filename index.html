@@ -3,470 +3,418 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Michael LaCour | Logic Dev</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Epilogue:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <title>Logic Dev | Roblox Systems & Web Development</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --white:   #ffffff;
-      --off:     #f7f7f5;
-      --light:   #ebebeb;
-      --mid:     #c0c0c0;
-      --muted:   #888;
-      --text:    #1a1a1a;
-      --black:   #0d0d0d;
-      --blue:    #1a4fff;
-      --blue-dk: #0f35cc;
-      --blue-lt: #e8eeff;
-      --border:  #e0e0e0;
-      --surface: #f3f3f3;
+      --white:    #ffffff;
+      --off:      #f9f8f6;
+      --light:    #ededea;
+      --mid:      #c4c4bc;
+      --muted:    #7a7a72;
+      --text:     #1c1c1a;
+      --black:    #0e0e0c;
+      --navy:     #0f1e3d;
+      --navy-dk:  #08132a;
+      --navy-lt:  #e8edf7;
+      --teal:     #1a7fc1;
+      --teal-dk:  #135e8e;
+      --teal-lt:  #eaf4fc;
+      --gold:     #c9a84c;
+      --border:   #e2e2dc;
+      --surface:  #f2f2ee;
     }
-
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--white);
       color: var(--text);
-      font-family: 'Epilogue', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 400;
       overflow-x: hidden;
     }
-
-    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: var(--off); }
-    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
-
+    ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 2px; }
     a { color: inherit; text-decoration: none; }
-
-    /* ============================
-       TOP INFO BAR
-    ============================ */
     .topbar {
-      background: var(--black);
+      background: var(--navy);
       color: var(--white);
-      padding: 10px 60px;
+      padding: 9px 64px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
-      font-family: 'DM Mono', monospace;
-      font-size: 11.5px;
-      letter-spacing: 0.05em;
-      border-bottom: 2px solid var(--blue);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      border-bottom: 2px solid var(--teal);
     }
-
     .topbar-left {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
       flex-wrap: wrap;
     }
-
     .topbar-right {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
       flex-wrap: wrap;
     }
-
     .topbar-item {
       display: flex;
       align-items: center;
       gap: 7px;
-      color: #bbb;
+      color: #8899bb;
     }
-
     .topbar-item strong {
-      color: var(--white);
+      color: #c8d4e8;
       font-weight: 500;
     }
-
     .topbar-item .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--blue);
+      width: 5px;
+      height: 5px;
+      background: #3dbb7a;
       border-radius: 50%;
       flex-shrink: 0;
+      animation: pulse 2.5s ease-in-out infinite;
     }
-
     .topbar-clock {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--white);
+      font-size: 11px;
+      font-weight: 400;
+      color: #c8d4e8;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-
     .topbar-clock .tz-label {
-      font-size: 10px;
-      color: var(--blue);
+      font-size: 9.5px;
+      color: var(--teal);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
     }
-
     .topbar-divider {
       width: 1px;
-      height: 14px;
-      background: #333;
+      height: 13px;
+      background: #1e2e4a;
     }
-
-    /* ============================
-       NAV
-    ============================ */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--white);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 0 60px;
+      padding: 0 64px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 64px;
+      height: 68px;
       transition: box-shadow 0.3s;
     }
-
     nav.scrolled {
-      box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+      box-shadow: 0 2px 24px rgba(15,30,61,0.06);
     }
-
     .nav-logo {
-      font-family: 'DM Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-weight: 500;
-      font-size: 15px;
-      letter-spacing: 0.08em;
-      color: var(--black);
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: var(--navy);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
-
     .nav-logo-badge {
-      background: var(--blue);
-      color: var(--white);
+      background: var(--teal-lt);
+      color: var(--teal);
       font-size: 9px;
-      padding: 3px 7px;
+      padding: 3px 8px;
       border-radius: 2px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
+      border: 1px solid rgba(26,127,193,0.2);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
     }
-
     .nav-links {
       list-style: none;
       display: flex;
       gap: 36px;
       align-items: center;
     }
-
     .nav-links a {
-      font-size: 12.5px;
-      letter-spacing: 0.08em;
+      font-size: 12px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
-      font-weight: 500;
+      font-weight: 600;
       transition: color 0.2s;
     }
-
-    .nav-links a:hover { color: var(--black); }
-
+    .nav-links a:hover { color: var(--navy); }
     .nav-cta {
-      background: var(--black);
+      background: var(--navy) !important;
       color: var(--white) !important;
-      padding: 8px 20px;
+      padding: 9px 22px;
       border-radius: 3px;
       transition: background 0.2s !important;
     }
-
-    .nav-cta:hover { background: var(--blue) !important; color: var(--white) !important; }
-
-    /* ============================
-       HERO
-    ============================ */
+    .nav-cta:hover { background: var(--teal) !important; }
     .hero {
-      background: var(--black);
+      background: var(--navy);
       color: var(--white);
-      padding: 96px 60px 80px;
+      padding: 100px 64px 88px;
       display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 60px;
+      grid-template-columns: 1fr 400px;
+      gap: 64px;
       align-items: end;
-      border-bottom: 3px solid var(--blue);
+      border-bottom: 3px solid var(--teal);
       position: relative;
       overflow: hidden;
     }
-
     .hero::before {
       content: '';
       position: absolute;
-      top: -60px;
-      right: -60px;
-      width: 480px;
-      height: 480px;
-      border: 1px solid rgba(26,79,255,0.15);
-      border-radius: 50%;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
       pointer-events: none;
     }
-
     .hero::after {
       content: '';
       position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 320px;
-      height: 320px;
-      border: 1px solid rgba(26,79,255,0.1);
-      border-radius: 50%;
+      bottom: -120px;
+      right: -80px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(26,127,193,0.1) 0%, transparent 70%);
       pointer-events: none;
     }
-
     .hero-eyebrow {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.18em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 28px;
+      color: var(--teal);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
     }
-
-    .hero-eyebrow span {
+    .hero-eyebrow .status-dot {
       display: inline-block;
-      width: 7px;
-      height: 7px;
-      background: #3dff7a;
+      width: 6px;
+      height: 6px;
+      background: #3dbb7a;
       border-radius: 50%;
-      animation: pulse 2.5s ease-in-out infinite;
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.75); }
+      50% { opacity: 0.35; transform: scale(0.7); }
     }
-
     .hero-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(52px, 7vw, 90px);
-      line-height: 1;
-      letter-spacing: -0.02em;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(54px, 7vw, 92px);
+      font-weight: 600;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
       color: var(--white);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
     }
-
     .hero-name em {
       font-style: italic;
-      color: var(--blue);
+      font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.6em;
+      display: block;
+      letter-spacing: -0.01em;
+      margin-top: 4px;
     }
-
     .hero-handle {
-      font-family: 'DM Mono', monospace;
-      font-size: 15px;
-      color: #666;
-      margin-bottom: 32px;
-      letter-spacing: 0.04em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #445577;
+      margin-bottom: 36px;
+      letter-spacing: 0.05em;
+      position: relative;
+      z-index: 1;
     }
-
     .hero-desc {
-      font-size: 16px;
-      line-height: 1.75;
-      color: #999;
-      max-width: 540px;
-      margin-bottom: 40px;
+      font-size: 15.5px;
+      line-height: 1.8;
+      color: #8899bb;
+      max-width: 520px;
+      margin-bottom: 44px;
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
     }
-
     .hero-desc strong {
-      color: var(--white);
+      color: #c8d4e8;
       font-weight: 500;
     }
-
     .hero-actions {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
     }
-
     .btn-primary {
-      background: var(--blue);
+      background: var(--teal);
       color: var(--white);
-      padding: 12px 28px;
+      padding: 13px 30px;
       border-radius: 3px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       transition: background 0.2s, transform 0.15s;
       display: inline-block;
     }
-
-    .btn-primary:hover { background: var(--blue-dk); transform: translateY(-1px); }
-
+    .btn-primary:hover { background: var(--teal-dk); transform: translateY(-1px); }
     .btn-ghost {
-      border: 1px solid #333;
-      color: #888;
-      padding: 12px 28px;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #8899bb;
+      padding: 13px 30px;
       border-radius: 3px;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       transition: border-color 0.2s, color 0.2s;
       display: inline-block;
     }
-
-    .btn-ghost:hover { border-color: #666; color: var(--white); }
-
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.35); color: var(--white); }
     .hero-sidebar {
-      background: #111;
-      border: 1px solid #222;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
       border-radius: 4px;
       padding: 32px;
       display: flex;
       flex-direction: column;
-      gap: 0;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(4px);
     }
-
     .sidebar-title {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: #444;
-      margin-bottom: 20px;
+      color: #2a3d60;
+      margin-bottom: 22px;
     }
-
     .sidebar-row {
-      padding: 14px 0;
-      border-bottom: 1px solid #1e1e1e;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 12px;
     }
-
     .sidebar-row:last-child { border-bottom: none; }
-
     .sidebar-key {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      color: #555;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #445577;
       letter-spacing: 0.04em;
       flex-shrink: 0;
     }
-
     .sidebar-val {
       font-size: 13px;
-      color: #ccc;
+      color: #8899bb;
       text-align: right;
       line-height: 1.5;
     }
-
-    .sidebar-val strong {
-      color: var(--white);
-      font-weight: 500;
-    }
-
-    .sidebar-val .blue { color: var(--blue); }
-
-    /* ============================
-       SECTION LAYOUT
-    ============================ */
+    .sidebar-val strong { color: #c8d4e8; font-weight: 500; }
+    .sidebar-val .accent { color: var(--teal); }
     .section {
-      padding: 96px 60px;
+      padding: 100px 64px;
       border-bottom: 1px solid var(--border);
     }
-
     .section-bg { background: var(--off); }
-
     .section-head {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 64px;
-      padding-bottom: 32px;
+      margin-bottom: 68px;
+      padding-bottom: 36px;
       border-bottom: 1px solid var(--border);
     }
-
     .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10.5px;
-      letter-spacing: 0.2em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--blue);
+      color: var(--teal);
       margin-bottom: 14px;
     }
-
     .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(32px, 4vw, 48px);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      color: var(--black);
+      font-family: 'Fraunces', serif;
+      font-size: clamp(32px, 4vw, 50px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--navy);
     }
-
     .section-title em {
       font-style: italic;
+      font-weight: 300;
       color: var(--muted);
     }
-
     .section-count {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
       color: var(--muted);
       letter-spacing: 0.1em;
       background: var(--light);
       padding: 6px 14px;
       border-radius: 2px;
     }
-
-    /* ============================
-       SEGMENT DIVIDER
-    ============================ */
     .segment-divider {
       display: flex;
       align-items: center;
-      gap: 20px;
-      padding: 0 60px;
-      margin: 0;
-      background: var(--blue);
+      padding: 0 64px;
+      background: var(--navy-dk);
       color: var(--white);
+      border-top: 1px solid rgba(26,127,193,0.2);
+      border-bottom: 1px solid rgba(26,127,193,0.2);
     }
-
     .segment-divider-inner {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 16px 0;
+      gap: 16px;
+      padding: 15px 0;
       width: 100%;
     }
-
     .segment-divider-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.22em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
-      font-weight: 500;
+      color: var(--teal);
+      font-weight: 400;
     }
-
     .segment-divider-line {
       flex: 1;
       height: 1px;
-      background: rgba(255,255,255,0.25);
+      background: rgba(26,127,193,0.15);
     }
-
-    /* ============================
-       PROJECT GRID
-    ============================ */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+      gap: 20px;
     }
-
     .project-card {
       background: var(--white);
       border: 1px solid var(--border);
@@ -478,165 +426,141 @@
       flex-direction: column;
       color: inherit;
     }
-
     .project-card:hover {
-      border-color: var(--blue);
-      box-shadow: 0 8px 40px rgba(26,79,255,0.1);
+      border-color: var(--teal);
+      box-shadow: 0 8px 40px rgba(26,127,193,0.08);
       transform: translateY(-2px);
     }
-
     .project-thumb-wrap {
       position: relative;
       width: 100%;
       aspect-ratio: 16/9;
-      background: var(--black);
+      background: var(--navy-dk);
       overflow: hidden;
     }
-
     .project-thumb-wrap iframe {
       width: 100%;
       height: 100%;
       border: none;
       display: block;
     }
-
     .project-thumb-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
-
     .embed-overlay {
       position: absolute;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.55);
+      background: rgba(8,19,42,0.6);
       transition: opacity 0.3s;
       cursor: pointer;
     }
-
     .embed-overlay.hidden {
       opacity: 0;
       pointer-events: none;
     }
-
     .play-btn {
-      width: 56px;
-      height: 56px;
-      background: var(--blue);
+      width: 52px;
+      height: 52px;
+      background: var(--teal);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: transform 0.2s, background 0.2s;
     }
-
     .embed-overlay:hover .play-btn {
       transform: scale(1.08);
-      background: var(--blue-dk);
+      background: var(--teal-dk);
     }
-
     .play-icon {
       width: 0;
       height: 0;
       border-style: solid;
-      border-width: 9px 0 9px 18px;
+      border-width: 8px 0 8px 16px;
       border-color: transparent transparent transparent #fff;
       margin-left: 3px;
     }
-
     .project-body {
       padding: 24px 28px 28px;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-
     .project-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
     }
-
     .project-num {
-      font-family: 'DM Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
       letter-spacing: 0.18em;
-      color: var(--blue);
+      color: var(--teal);
     }
-
     .project-arrow {
-      color: var(--muted);
-      font-size: 18px;
+      color: var(--mid);
+      font-size: 17px;
       transition: color 0.2s, transform 0.2s;
     }
-
     .project-card:hover .project-arrow {
-      color: var(--blue);
+      color: var(--teal);
       transform: translate(3px, -3px);
     }
-
     .project-name {
-      font-family: 'Epilogue', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
-      font-size: 18px;
-      letter-spacing: -0.01em;
-      color: var(--black);
+      font-size: 17px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
       margin-bottom: 8px;
     }
-
     .project-desc {
-      font-size: 13.5px;
-      line-height: 1.65;
+      font-size: 13px;
+      line-height: 1.7;
       color: #666;
       margin-bottom: 18px;
       flex: 1;
     }
-
     .project-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 7px;
+      gap: 6px;
     }
-
     .tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 9.5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 4px 10px;
+      padding: 4px 9px;
       border-radius: 2px;
-      background: var(--surface);
-      color: var(--muted);
-      border: 1px solid var(--border);
+      background: var(--navy-lt);
+      color: var(--teal);
+      border: 1px solid rgba(26,127,193,0.15);
     }
-
-    /* ============================
-       ABOUT + SKILLS
-    ============================ */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: start;
     }
-
     .about-text p {
-      font-size: 15.5px;
-      line-height: 1.8;
+      font-size: 15px;
+      line-height: 1.85;
       color: #555;
       margin-bottom: 18px;
+      font-weight: 300;
     }
-
     .about-text p strong {
-      color: var(--black);
+      color: var(--navy);
       font-weight: 600;
     }
-
     .exp-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -645,241 +569,196 @@
       border: 1px solid var(--border);
       border-radius: 4px;
       overflow: hidden;
-      margin-top: 36px;
+      margin-top: 40px;
     }
-
     .exp-cell {
       background: var(--white);
-      padding: 20px 24px;
+      padding: 22px 24px;
       text-align: center;
     }
-
     .exp-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 34px;
-      color: var(--black);
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--navy);
       line-height: 1;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
-
     .exp-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.12em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
     }
-
     .skills-list { list-style: none; }
-
     .skill-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 0;
+      padding: 17px 0;
       border-bottom: 1px solid var(--border);
       gap: 20px;
     }
-
     .skill-item:first-child { border-top: 1px solid var(--border); }
-
     .skill-name {
-      font-size: 14px;
-      color: var(--black);
+      font-size: 13.5px;
+      color: var(--navy);
       font-weight: 500;
     }
-
     .skill-right {
       display: flex;
       align-items: center;
       gap: 14px;
     }
-
     .skill-pct {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
       color: var(--muted);
       width: 30px;
       text-align: right;
     }
-
     .skill-bar-wrap {
       width: 100px;
-      height: 3px;
+      height: 2px;
       background: var(--light);
       border-radius: 2px;
       overflow: hidden;
     }
-
     .skill-bar {
       height: 100%;
-      background: var(--blue);
+      background: var(--teal);
       border-radius: 2px;
       width: 0;
       transition: width 1.3s cubic-bezier(0.4,0,0.2,1);
     }
-
-    /* ============================
-       CONTACT
-    ============================ */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: start;
     }
-
     .contact-headline {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'Fraunces', serif;
       font-size: clamp(44px, 6vw, 72px);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--black);
+      font-weight: 600;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--navy);
       margin-bottom: 24px;
     }
-
     .contact-headline em {
       font-style: italic;
-      color: var(--blue);
+      font-weight: 300;
+      color: var(--teal);
     }
-
     .contact-sub {
       font-size: 15px;
       color: #666;
-      line-height: 1.7;
+      line-height: 1.75;
       margin-bottom: 36px;
+      font-weight: 300;
     }
-
     .contact-links-list {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
-
     .contact-link-item a {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 20px;
+      padding: 15px 20px;
       border: 1px solid var(--border);
       border-radius: 3px;
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--text);
       font-weight: 500;
       transition: border-color 0.2s, background 0.2s, color 0.2s;
       background: var(--white);
     }
-
     .contact-link-item a:hover {
-      border-color: var(--blue);
-      background: var(--blue-lt);
-      color: var(--blue);
+      border-color: var(--teal);
+      background: var(--teal-lt);
+      color: var(--teal);
     }
-
-    .contact-link-item a span {
-      font-size: 16px;
-    }
-
-    .payment-box {
-      background: var(--black);
+    .contact-link-item a span { font-size: 16px; }
+    .terms-box {
+      background: var(--navy);
       border-radius: 4px;
-      padding: 32px;
+      padding: 36px;
       color: var(--white);
     }
-
-    .payment-title {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
+    .terms-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: #555;
-      margin-bottom: 20px;
+      color: #445577;
+      margin-bottom: 24px;
     }
-
-    .payment-row {
+    .terms-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 0;
-      border-bottom: 1px solid #1e1e1e;
-      font-size: 14px;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 13.5px;
     }
-
-    .payment-row:last-child { border-bottom: none; }
-
-    .payment-key {
-      color: #666;
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
+    .terms-row:last-child { border-bottom: none; }
+    .terms-key {
+      color: #445577;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
     }
-
-    .payment-val {
-      color: var(--white);
+    .terms-val {
+      color: #c8d4e8;
       font-weight: 500;
     }
-
-    .payment-val .blue { color: var(--blue); }
-
-    .payment-notice {
-      margin-top: 20px;
-      padding: 12px 16px;
-      background: rgba(26,79,255,0.12);
-      border-left: 3px solid var(--blue);
+    .terms-val .accent { color: var(--teal); }
+    .terms-notice {
+      margin-top: 24px;
+      padding: 14px 18px;
+      background: rgba(26,127,193,0.08);
+      border-left: 3px solid var(--teal);
       border-radius: 0 3px 3px 0;
       font-size: 12.5px;
-      color: #aaa;
-      line-height: 1.6;
+      color: #8899bb;
+      line-height: 1.65;
+      font-weight: 300;
     }
-
-    /* ============================
-       FOOTER
-    ============================ */
     footer {
-      background: var(--black);
-      padding: 28px 60px;
+      background: var(--navy-dk);
+      padding: 28px 64px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
+      border-top: 1px solid rgba(26,127,193,0.15);
     }
-
     footer p {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: #444;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: #2a3d60;
       letter-spacing: 0.04em;
     }
-
-    footer a {
-      color: #555;
-      transition: color 0.2s;
-    }
-
-    footer a:hover { color: var(--white); }
-
-    /* ============================
-       FADE ANIMATIONS
-    ============================ */
+    footer a { color: #445577; transition: color 0.2s; }
+    footer a:hover { color: var(--teal); }
     .fade-up {
       opacity: 0;
-      transform: translateY(28px);
+      transform: translateY(24px);
       transition: opacity 0.65s ease, transform 0.65s ease;
     }
-
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
     .fade-up.d1 { transition-delay: 0.08s; }
     .fade-up.d2 { transition-delay: 0.16s; }
     .fade-up.d3 { transition-delay: 0.24s; }
-
-    /* ============================
-       RESPONSIVE
-    ============================ */
     @media (max-width: 960px) {
       .topbar, nav, .hero, .section, footer { padding-left: 24px; padding-right: 24px; }
       .hero { grid-template-columns: 1fr; padding-top: 64px; }
@@ -894,36 +773,30 @@
   </style>
 </head>
 <body>
-
-  <!-- TOP INFO BAR -->
   <div class="topbar">
     <div class="topbar-left">
       <div class="topbar-clock">
         <span id="live-clock">--:-- --</span>
-        <span class="tz-label">CST (My Time)</span>
+        <span class="tz-label">CST</span>
       </div>
       <div class="topbar-divider"></div>
       <div class="topbar-item">
-        <span class="dot"></span>
-        <span>Michael LaCour | goes by <strong>Logic</strong></span>
+        <span class="dot" style="animation: pulse 2.5s ease-in-out infinite;"></span>
+        <span>Logic   Roblox Systems Developer</span>
       </div>
-      <div class="topbar-divider"></div>
-      <div class="topbar-item">Age: <strong>14</strong></div>
     </div>
     <div class="topbar-right">
       <div class="topbar-item">Luau: <strong>4 yrs</strong></div>
       <div class="topbar-divider"></div>
-      <div class="topbar-item">HTML: <strong>2 yrs</strong></div>
+      <div class="topbar-item">HTML / JS: <strong>2 yrs</strong></div>
       <div class="topbar-divider"></div>
       <div class="topbar-item">Python: <strong>3 yrs</strong></div>
     </div>
   </div>
-
-  <!-- NAV -->
   <nav id="nav">
     <div class="nav-logo">
       LOGIC.DEV
-      <span class="nav-logo-badge">Open to Work</span>
+      <span class="nav-logo-badge">Available</span>
     </div>
     <ul class="nav-links">
       <li><a href="#roblox">Roblox</a></li>
@@ -932,79 +805,67 @@
       <li><a href="#contact" class="nav-cta">Contact</a></li>
     </ul>
   </nav>
-
-  <!-- HERO -->
   <header class="hero">
     <div>
-      <p class="hero-eyebrow"><span></span>Roblox Developer &amp; Web Builder</p>
-      <h1 class="hero-name">Logic<br /><em>(IdkLxgic)</em></h1>
-      <p class="hero-handle">// Michael LaCour</p>
+      <p class="hero-eyebrow"><span class="status-dot" style="animation: pulse 2.5s ease-in-out infinite;"></span>Roblox Developer &amp; Web Builder</p>
+      <h1 class="hero-name">Logic<em>// IdkLxgic</em></h1>
+      <p class="hero-handle">[ systems architect · luau specialist ]</p>
       <p class="hero-desc">
-        I build <strong>production-ready systems for Roblox</strong> and clean web tools from scratch. Everything shown here is my own work, tested and functional. No copy-paste, no outsourcing.
+        I build <strong>game systems for Roblox</strong> and web tools from scratch. Everything here is stuff I actually made, tested, and use. No copy-paste, no outsourcing.
       </p>
       <div class="hero-actions">
-        <a href="#roblox" class="btn-primary">View Work</a>
-        <a href="#contact" class="btn-ghost">Get in Touch</a>
+        <a href="#roblox" class="btn-primary">View Portfolio</a>
+        <a href="#contact" class="btn-ghost">Engage Services</a>
       </div>
     </div>
     <aside class="hero-sidebar">
-      <p class="sidebar-title">// Quick Info</p>
-      <div class="sidebar-row">
-        <span class="sidebar-key">Name</span>
-        <span class="sidebar-val"><strong>Michael LaCour</strong></span>
-      </div>
+      <p class="sidebar-title">// Developer Profile</p>
       <div class="sidebar-row">
         <span class="sidebar-key">Handle</span>
         <span class="sidebar-val"><strong>Logic</strong></span>
       </div>
       <div class="sidebar-row">
-        <span class="sidebar-key">Age</span>
-        <span class="sidebar-val">14</span>
+        <span class="sidebar-key">Alias</span>
+        <span class="sidebar-val">IdkLxgic</span>
       </div>
       <div class="sidebar-row">
         <span class="sidebar-key">Primary Lang</span>
-        <span class="sidebar-val"><span class="blue">Luau</span> (4 years)</span>
+        <span class="sidebar-val"><span class="accent">Luau</span>   4 years</span>
       </div>
       <div class="sidebar-row">
-        <span class="sidebar-key">Other</span>
-        <span class="sidebar-val">HTML (2 yrs) &bull; Python (3 yrs)</span>
+        <span class="sidebar-key">Secondary</span>
+        <span class="sidebar-val">HTML / JS &bull; Python</span>
       </div>
       <div class="sidebar-row">
         <span class="sidebar-key">Payment</span>
-        <span class="sidebar-val"><span class="blue">CashApp</span> &bull; Robux</span>
+        <span class="sidebar-val"><span class="accent">CashApp</span> &bull; Robux</span>
       </div>
       <div class="sidebar-row">
-        <span class="sidebar-key">Terms</span>
-        <span class="sidebar-val">% deal with upfront required</span>
+        <span class="sidebar-key">Upfront</span>
+        <span class="sidebar-val">Required on all % deals</span>
       </div>
       <div class="sidebar-row">
-        <span class="sidebar-key">Status</span>
-        <span class="sidebar-val"><span class="blue">Available</span></span>
+        <span class="sidebar-key">Commission</span>
+        <span class="sidebar-val"><span class="accent">Open</span></span>
       </div>
     </aside>
   </header>
-
-  <!-- ROBLOX DIVIDER -->
   <div class="segment-divider" id="roblox">
     <div class="segment-divider-inner">
       <span class="segment-divider-label">Roblox Projects</span>
       <div class="segment-divider-line"></div>
-      <span class="segment-divider-label">01 &mdash; 08</span>
+      <span class="segment-divider-label">01   11</span>
     </div>
   </div>
-
-  <!-- ROBLOX SECTION -->
   <section class="section">
     <div class="section-head fade-up">
       <div>
         <p class="section-label">// Roblox Studio</p>
         <h2 class="section-title">Game Systems &amp; <em>Mechanics</em></h2>
       </div>
-      <span class="section-count">9 showcases</span>
+      <span class="section-count">11 showcases</span>
     </div>
-
     <div class="projects-grid">
-
       <div class="project-card fade-up" data-href="https://medal.tv/games/roblox-studio/clips/lQhqbQvW1h0uRyMgo">
         <div class="project-thumb-wrap">
           <iframe id="frame-01" src="about:blank" data-src="https://medal.tv/clip/lQhqbQvW1h0uRyMgo/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
@@ -1018,7 +879,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">Animation System</h3>
-          <p class="project-desc">First-person view with full limb visibility and head tracking that follows animations. States covered: slide, walk, jump, fall, crouch idle, crouch move, and idle. Built entirely from scratch.</p>
+          <p class="project-desc">First person with full arms and legs visible plus head tracking tied to the animations. Covers slide, walk, jump, fall, crouch idle, crouch walk, and idle. All from scratch.</p>
           <div class="project-tags">
             <span class="tag">Animation</span>
             <span class="tag">First Person</span>
@@ -1026,7 +887,6 @@
           </div>
         </div>
       </div>
-
       <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox-studio/clips/lQhwORG3shmyk9kDP">
         <div class="project-thumb-wrap">
           <iframe id="frame-02" src="about:blank" data-src="https://medal.tv/clip/lQhwORG3shmyk9kDP/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
@@ -1040,7 +900,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">Loading Screen</h3>
-          <p class="project-desc">Cinematic camera sequence while the game loads. Skip button included. Live loading status that shows exactly what asset is being loaded and tracks overall progress.</p>
+          <p class="project-desc">Cinematic camera plays while the game loads with a skip button. Shows the current asset loading and a progress bar so players know whats actually happening.</p>
           <div class="project-tags">
             <span class="tag">UI</span>
             <span class="tag">Camera</span>
@@ -1048,7 +908,6 @@
           </div>
         </div>
       </div>
-
       <div class="project-card fade-up" data-href="https://medal.tv/games/roblox-studio/clips/lQhzreeju2fm6t4m7">
         <div class="project-thumb-wrap">
           <iframe id="frame-03" src="about:blank" data-src="https://medal.tv/clip/lQhzreeju2fm6t4m7/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
@@ -1062,7 +921,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">Shop System</h3>
-          <p class="project-desc">Camera pans to focus the selected item. Each item has its own UI transitions and a spotlight activates overhead. Items equip on selection and everything saves via DataStore.</p>
+          <p class="project-desc">Camera zooms in on whatever item you pick. Each item has its own UI and a spotlight turns on above it. Items equip when selected and everything saves with DataStore.</p>
           <div class="project-tags">
             <span class="tag">DataSave</span>
             <span class="tag">Camera</span>
@@ -1070,7 +929,6 @@
           </div>
         </div>
       </div>
-
       <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox-studio/clips/lQhDwqqOpaLTZZTzJ">
         <div class="project-thumb-wrap">
           <iframe id="frame-04" src="about:blank" data-src="https://medal.tv/clip/lQhDwqqOpaLTZZTzJ/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
@@ -1084,7 +942,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">Mining System</h3>
-          <p class="project-desc">Deformable terrain mining with a pickaxe stat system. Each tool carries unique range, cooldown, and power values. Includes ore detection, a full inventory UI, and collection logic.</p>
+          <p class="project-desc">Deformable terrain mining with a pickaxe stat system. Each tool has its own range, cooldown, and power. Has ore detection, a full inventory UI, and collection logic.</p>
           <div class="project-tags">
             <span class="tag">Terrain</span>
             <span class="tag">Inventory</span>
@@ -1092,7 +950,6 @@
           </div>
         </div>
       </div>
-
       <div class="project-card fade-up" data-href="https://medal.tv/games/roblox-studio/clips/lQhHdMjElxtXIQvIz">
         <div class="project-thumb-wrap">
           <iframe id="frame-05" src="about:blank" data-src="https://medal.tv/clip/lQhHdMjElxtXIQvIz/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
@@ -1106,7 +963,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">Selling System + DataSaves</h3>
-          <p class="project-desc">Ores scale in size and the larger ones sell for more. Full economy loop: mine, collect, sell. Ore size and currency balance both persist across sessions through DataStore.</p>
+          <p class="project-desc">Ores get bigger the more you mine and larger ones sell for more. Full loop: mine, collect, sell. Ore size and currency both save between sessions.</p>
           <div class="project-tags">
             <span class="tag">Economy</span>
             <span class="tag">DataStore</span>
@@ -1114,7 +971,6 @@
           </div>
         </div>
       </div>
-
       <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox/clips/m0XfoJYmc5tI-bBRw">
         <div class="project-thumb-wrap">
           <iframe id="frame-06" src="about:blank" data-src="https://medal.tv/clip/m0XfoJYmc5tI-bBRw/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
@@ -1128,7 +984,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">Basketball System + UI</h3>
-          <p class="project-desc">Functional shooting mechanics with real physics. The entire UI was scripted from scratch alongside it. A second clip on Medal shows extended gameplay if you want more context.</p>
+          <p class="project-desc">Real shooting mechanics with actual physics. UI was scripted from scratch alongside it. There is a second clip on Medal with more gameplay if you want more context.</p>
           <div class="project-tags">
             <span class="tag">Physics</span>
             <span class="tag">UI</span>
@@ -1136,7 +992,6 @@
           </div>
         </div>
       </div>
-
       <div class="project-card fade-up" data-href="https://medal.tv/games/roblox/clips/m0Xm1L95tt-YK8n6b">
         <div class="project-thumb-wrap">
           <iframe id="frame-07" src="about:blank" data-src="https://medal.tv/clip/m0Xm1L95tt-YK8n6b/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
@@ -1150,7 +1005,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">Vehicle Mounting + Core Systems</h3>
-          <p class="project-desc">Mount and dismount vehicles with smooth transitions. Also packed in: a working leaderboard, quest system, NPC mascots, and a full game tutorial. All production-ready.</p>
+          <p class="project-desc">Smooth mount and dismount for vehicles. Also has a working leaderboard, quest system, NPC mascots, and a full tutorial. All of it is production ready.</p>
           <div class="project-tags">
             <span class="tag">Vehicles</span>
             <span class="tag">Quests</span>
@@ -1158,7 +1013,6 @@
           </div>
         </div>
       </div>
-
       <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox/clips/m6IH0Lg47QOGbCvDy">
         <div class="project-thumb-wrap">
           <iframe id="frame-08" src="about:blank" data-src="https://medal.tv/clip/m6IH0Lg47QOGbCvDy/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
@@ -1172,7 +1026,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">Menu System</h3>
-          <p class="project-desc">Main menu with tween-driven animations throughout. Includes a practice mode teleport button and clean UI transitions. Everything behaves reliably under actual play conditions.</p>
+          <p class="project-desc">Main menu with tween animations throughout. Has a practice mode teleport and clean transitions. Works reliably in actual play, not just in studio.</p>
           <div class="project-tags">
             <span class="tag">Menu</span>
             <span class="tag">Tweens</span>
@@ -1180,90 +1034,82 @@
           </div>
         </div>
       </div>
-
       <div class="project-card fade-up" data-href="https://medal.tv/games/roblox-studio/clips/miFGtpaUFLIrO0bYv?invite=cr-MSxiSkQsMzExNTc1ODgz&v=42">
-  <div class="project-thumb-wrap">
-    <iframe id="frame-09" src="about:blank" data-src="https://medal.tv/clip/miFGtpaUFLIrO0bYv/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
-    <div class="embed-overlay" id="overlay-09">
-      <div class="play-btn"><div class="play-icon"></div></div>
-    </div>
-  </div>
-  <div class="project-body">
-    <div class="project-meta">
-      <span class="project-num">09</span>
-      <span class="project-arrow">&#8599;</span>
-    </div>
-    <h3 class="project-name">Dynamic Weather System</h3>
-    <p class="project-desc">Six fully scripted weather states: rain, storm, fog, snow, heat, and clear. Storm spawns lightning bolts with screen flash and thunder. Snow applies a cold color tint and grows a ground layer over time. All states transition via TweenService with per-player particle effects.</p>
-    <div class="project-tags">
-      <span class="tag">Lighting</span>
-      <span class="tag">TweenService</span>
-      <span class="tag">Particles</span>
-    </div>
-  </div>
-</div>
-
-<div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox-studio/clips/miRz3Uwm2zNZzfljV?invite=cr-MSx3aGUsMzExNTc1ODgz">
-  <div class="project-thumb-wrap">
-    <iframe id="frame-10" src="about:blank" data-src="https://medal.tv/clip/miRz3Uwm2zNZzfljV/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
-    <div class="embed-overlay" id="overlay-10">
-      <div class="play-btn"><div class="play-icon"></div></div>
-    </div>
-  </div>
-  <div class="project-body">
-    <div class="project-meta">
-      <span class="project-num">10</span>
-      <span class="project-arrow">&#8599;</span>
-    </div>
-    <h3 class="project-name">Dodge, Completely built by me, besides the maps</h3>
-    <p class="project-desc">Complete multiplayer tag game with 8 game modes: Normal, Freeze, Infection, RPG, Pass The Bomb, Floor Is Lava, Juggernaut, and Dodgeball. Includes a voting system, crate system with rarity rolling, gamepass shop, playtime rewards, highlight inventory, DataStore persistence, admin panel, leaderboards, and mobile support. All systems written from scratch.</p>
-    <div class="project-tags">
-      <span class="tag">DataStore</span>
-      <span class="tag">Game Modes</span>
-      <span class="tag">UI Systems</span>
-      <span class="tag">Economy</span>
-      <span class="tag">Admin</span>
-    </div>
-  </div>
-</div>
-
-      <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox-studio/clips/mkYERKejlciZHzHVR?invite=cr-MSxwczQsMzExNTc1ODgz">
-  <div class="project-thumb-wrap">
-    <iframe id="frame-10" src="about:blank" data-src="https://medal.tv/clip/mkYERKejlciZHzHVR/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
-    <div class="embed-overlay" id="overlay-10">
-      <div class="play-btn"><div class="play-icon"></div></div>
-    </div>
-  </div>
-  <div class="project-body">
-    <div class="project-meta">
-      <span class="project-num">11</span>
-      <span class="project-arrow">&#8599;</span>
-    </div>
-    <h3 class="project-name">Mini-Map System</h3>
-    <p class="project-desc">Mini-Map with working player tracking using viewport frames, completely customizable for your game needs. Also has a big map when you press M or click the minimap. Completely optimized</p>
-    <div class="project-tags">
-      <span class="tag">ViewportFrames</span>
-      <span class="tag">Cameras</span>
-      <span class="tag">Mathematics</span>
-      <span class="tag">RunService</span>
-      <span class="tag">UISystems</span>
-    </div>
-  </div>
-</div>
-
+        <div class="project-thumb-wrap">
+          <iframe id="frame-09" src="about:blank" data-src="https://medal.tv/clip/miFGtpaUFLIrO0bYv/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-09">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">09</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Dynamic Weather System</h3>
+          <p class="project-desc">Six weather states: rain, storm, fog, snow, heat, and clear. Storms spawn lightning with a screen flash and thunder sound. Snow tints the lighting cold and builds up a ground layer over time. Everything transitions with TweenService and particles are per player.</p>
+          <div class="project-tags">
+            <span class="tag">Lighting</span>
+            <span class="tag">TweenService</span>
+            <span class="tag">Particles</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card fade-up d1" data-href="https://medal.tv/games/roblox-studio/clips/miRz3Uwm2zNZzfljV?invite=cr-MSx3aGUsMzExNTc1ODgz">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-10" src="about:blank" data-src="https://medal.tv/clip/miRz3Uwm2zNZzfljV/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-10">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">10</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Dodge   Full Game</h3>
+          <p class="project-desc">A full multiplayer tag game with 8 modes: Normal, Freeze, Infection, RPG, Pass The Bomb, Floor Is Lava, Juggernaut, and Dodgeball. Has a voting system, crate system with rarity rolling, gamepass shop, playtime rewards, highlight inventory, DataStore saves, admin panel, leaderboards, and mobile support. I built everything except the maps.</p>
+          <div class="project-tags">
+            <span class="tag">DataStore</span>
+            <span class="tag">Game Modes</span>
+            <span class="tag">UI Systems</span>
+            <span class="tag">Economy</span>
+            <span class="tag">Admin</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card fade-up" data-href="https://medal.tv/games/roblox-studio/clips/mkYERKejlciZHzHVR?invite=cr-MSxwczQsMzExNTc1ODgz">
+        <div class="project-thumb-wrap">
+          <iframe id="frame-11" src="about:blank" data-src="https://medal.tv/clip/mkYERKejlciZHzHVR/embed?autoplay=1&muted=0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+          <div class="embed-overlay" id="overlay-11">
+            <div class="play-btn"><div class="play-icon"></div></div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-num">11</span>
+            <span class="project-arrow">&#8599;</span>
+          </div>
+          <h3 class="project-name">Mini-Map System</h3>
+          <p class="project-desc">Mini-map with real player tracking using viewport frames. Fully customizable. Press M or click it to open a full map. Runs on RunService and is optimized well.</p>
+          <div class="project-tags">
+            <span class="tag">ViewportFrames</span>
+            <span class="tag">Cameras</span>
+            <span class="tag">Mathematics</span>
+            <span class="tag">RunService</span>
+            <span class="tag">UI Systems</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
-
-  <!-- WEB DIVIDER -->
   <div class="segment-divider" id="web">
     <div class="segment-divider-inner">
       <span class="segment-divider-label">Web Projects</span>
       <div class="segment-divider-line"></div>
-      <span class="segment-divider-label">12 &mdash; 13</span>
+      <span class="segment-divider-label">12   13</span>
     </div>
   </div>
-
-  <!-- WEB SECTION -->
   <section class="section section-bg">
     <div class="section-head fade-up">
       <div>
@@ -1272,14 +1118,12 @@
       </div>
       <span class="section-count">2 projects</span>
     </div>
-
     <div class="projects-grid">
-
       <a href="COLORXL" target="_blank" class="project-card fade-up">
         <div class="project-thumb-wrap">
           <img src="https://image2url.com/r2/default/images/1773274828478-c9d36497-b88d-4760-a065-63b82114f77b.png" alt="COLORXL" />
           <div class="embed-overlay">
-            <div class="play-btn" style="background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.5);">
+            <div class="play-btn" style="background:rgba(26,127,193,0.2);border:2px solid rgba(26,127,193,0.5);">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
             </div>
           </div>
@@ -1290,7 +1134,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">COLORXL</h3>
-          <p class="project-desc">Pick any color, sample from an uploaded image, or pull colors directly from your camera in real time. Export as PNG, JPG, or WEBP at any pixel size you need.</p>
+          <p class="project-desc">Pick any color, sample from an image you upload, or pull colors from your camera live. Export as PNG, JPG, or WEBP at whatever size you want.</p>
           <div class="project-tags">
             <span class="tag">Color Tools</span>
             <span class="tag">Camera API</span>
@@ -1298,12 +1142,11 @@
           </div>
         </div>
       </a>
-
       <a href="QRXL" target="_blank" class="project-card fade-up d1">
         <div class="project-thumb-wrap">
           <img src="https://image2url.com/r2/default/images/1773274941604-5404783e-f405-428a-916d-fb958e52f3e1.png" alt="QRXL" />
           <div class="embed-overlay">
-            <div class="play-btn" style="background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.5);">
+            <div class="play-btn" style="background:rgba(26,127,193,0.2);border:2px solid rgba(26,127,193,0.5);">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
             </div>
           </div>
@@ -1314,7 +1157,7 @@
             <span class="project-arrow">&#8599;</span>
           </div>
           <h3 class="project-name">QRXL</h3>
-          <p class="project-desc">Generate custom-colored QR codes, decode them from uploaded images, or scan live from your camera. Exports as PNG or SVG. Everything runs in the browser with no backend.</p>
+          <p class="project-desc">Make custom colored QR codes, decode them from images, or scan live from your camera. Exports as PNG or SVG. Runs fully in the browser, no backend at all.</p>
           <div class="project-tags">
             <span class="tag">QR Codes</span>
             <span class="tag">Camera API</span>
@@ -1322,11 +1165,8 @@
           </div>
         </div>
       </a>
-
     </div>
   </section>
-
-  <!-- ABOUT -->
   <section id="about" class="section">
     <div class="section-head fade-up">
       <div>
@@ -1337,10 +1177,10 @@
     <div class="about-grid">
       <div class="fade-up">
         <div class="about-text">
-          <p>My name is <strong>Michael LaCour</strong>, but online I go by <strong>Logic</strong>. I am 14 years old and have been writing Luau for four years. I got into development because I wanted to build things that actually worked, not just looked good in a screenshot.</p>
-          <p>Most of what I do lives inside <strong>Roblox Studio</strong>: game logic, data persistence, UI systems, physics, camera work, and anything else a project needs. I do not hand off work to anyone else. If it is in the portfolio, I wrote it and tested it myself.</p>
-          <p>Outside of Roblox, I build <strong>browser-based tools</strong> in plain HTML, CSS, and JavaScript. No frameworks, no dependencies, just clean code that runs anywhere. I also know Python and use it when a project calls for it.</p>
-          <p>I take freelance and collaboration work seriously. If you have a Roblox project that needs real systems, get in touch.</p>
+          <p>I go by <strong>Logic</strong>. I have been writing Luau for four years and most of what I do lives in <strong>Roblox Studio</strong>: game logic, data saves, UI, physics, camera work, whatever a project needs.</p>
+          <p>Everything in this portfolio I wrote and tested myself. I do not hand off work or copy scripts from the toolbox. If it is on here, I built it.</p>
+          <p>Outside of Roblox I build <strong>browser tools</strong> in plain HTML, CSS, and JavaScript. No frameworks, no libraries. Just code that works anywhere. I know Python too and use it when it makes sense.</p>
+          <p>I take commissions seriously. If you have a Roblox project that needs real systems, reach out.</p>
         </div>
         <div class="exp-row">
           <div class="exp-cell">
@@ -1353,12 +1193,12 @@
           </div>
           <div class="exp-cell">
             <div class="exp-num">2</div>
-            <div class="exp-label">Yrs HTML</div>
+            <div class="exp-label">Yrs HTML/JS</div>
           </div>
         </div>
       </div>
       <div class="fade-up d2">
-        <p class="section-label" style="margin-bottom:0;">// Skills</p>
+        <p class="section-label" style="margin-bottom:0;">// Competency Matrix</p>
         <ul class="skills-list">
           <li class="skill-item">
             <span class="skill-name">Lua / Luau</span>
@@ -1413,19 +1253,17 @@
       </div>
     </div>
   </section>
-
-  <!-- CONTACT -->
   <section id="contact" class="section section-bg">
     <div class="section-head fade-up">
       <div>
-        <p class="section-label">// Work Together</p>
-        <h2 class="section-title">Get in <em>Touch</em></h2>
+        <p class="section-label">// Engagement</p>
+        <h2 class="section-title">Work <em>Together</em></h2>
       </div>
     </div>
     <div class="contact-grid">
       <div class="fade-up">
         <h2 class="contact-headline">Ready to<br /><em>build?</em></h2>
-        <p class="contact-sub">I am available for freelance Roblox work and serious collaborations. Reach out through any of the channels below and I will respond as soon as I can.</p>
+        <p class="contact-sub">Open for Roblox freelance and collabs. Hit me up on any of these and I will get back to you.</p>
         <ul class="contact-links-list">
           <li class="contact-link-item">
             <a href="https://www.roblox.com/users/1039526162/profile" target="_blank">
@@ -1448,47 +1286,40 @@
         </ul>
       </div>
       <div class="fade-up d2">
-        <div class="payment-box">
-          <p class="payment-title">// Payment &amp; Terms</p>
-          <div class="payment-row">
-            <span class="payment-key">CashApp</span>
-            <span class="payment-val"><span class="blue">$MichaelLaCourJr</span></span>
+        <div class="terms-box">
+          <p class="terms-title">// Engagement Terms</p>
+          <div class="terms-row">
+            <span class="terms-key">Payment Methods</span>
+            <span class="terms-val"><span class="accent">CashApp</span> &bull; Robux</span>
           </div>
-          <div class="payment-row">
-            <span class="payment-key">Robux</span>
-            <span class="payment-val">Accepted</span>
+          <div class="terms-row">
+            <span class="terms-key">Structure</span>
+            <span class="terms-val">Percentage, Robux, or Cash</span>
           </div>
-          <div class="payment-row">
-            <span class="payment-key">Structure</span>
-            <span class="payment-val">Percentage, Robux, or CashApp.</span>
+          <div class="terms-row">
+            <span class="terms-key">Upfront Deposit</span>
+            <span class="terms-val">Required on all % engagements</span>
           </div>
-          <div class="payment-row">
-            <span class="payment-key">Upfront</span>
-            <span class="payment-val">Required on all jobs % based</span>
+          <div class="terms-row">
+            <span class="terms-key">Commission Status</span>
+            <span class="terms-val"><span class="accent">Open</span></span>
           </div>
-          <div class="payment-row">
-            <span class="payment-key">Commission</span>
-            <span class="payment-val">Open</span>
-          </div>
-          <div class="payment-notice">
-            I only take percentage-based deals and all work requires an upfront payment before I start. No exceptions.
+          <div class="terms-notice">
+            Percentage deals need an upfront before I start. Rates are figured out per project. No exceptions.
           </div>
         </div>
       </div>
     </div>
   </section>
-
   <footer>
-    <p>&copy; 2026 Michael LaCour (Logic). All rights reserved.</p>
-    <p>Built with plain HTML, CSS &amp; GITHUB.PAGES</p>
+    <p>&copy; 2026 Logic (IdkLxgic). All rights reserved.</p>
+    <p>Built with plain HTML, CSS &amp; GitHub Pages</p>
   </footer>
-
   <script>
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
     });
-
     const fadeEls = document.querySelectorAll('.fade-up');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1501,7 +1332,6 @@
       });
     }, { threshold: 0.1 });
     fadeEls.forEach(el => observer.observe(el));
-
     function updateClock() {
       const now = new Date();
       const cst = new Date(now.toLocaleString('en-US', { timeZone: 'America/Chicago' }));
@@ -1514,7 +1344,6 @@
     }
     updateClock();
     setInterval(updateClock, 1000);
-
     document.querySelectorAll('.embed-overlay[id^="overlay-"]').forEach(overlay => {
       overlay.addEventListener('click', () => {
         const num = overlay.id.replace('overlay-', '');
@@ -1525,7 +1354,6 @@
         }
       });
     });
-
     document.querySelectorAll('.project-card[data-href]').forEach(card => {
       card.addEventListener('click', (e) => {
         if (e.target.closest('.embed-overlay') || e.target.closest('iframe')) return;
@@ -1533,6 +1361,5 @@
       });
     });
   </script>
-
 </body>
 </html>
